@@ -15,9 +15,9 @@ jobs:
 
       - name: Add itti-infra-share profile credentials to ~/.aws/credentials.
         run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-          aws configure set role_arn ${{secrets.TEST_ROLE_TO_ASSUME}}
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile itti-infra-share
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile itti-infra-share
+          aws configure set role_arn ${{secrets.TEST_ROLE_TO_ASSUME}} --profile itti-infra-share
           aws configure set source_profile itti-infra-share
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
