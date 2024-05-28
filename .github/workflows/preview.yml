@@ -30,6 +30,6 @@ jobs:
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1.4.7
         with:
-          source-dir: .
+          source-dir: ./build/
           token: ${{ secrets.TOKEN_GITHUB_DEPLOY_TEST }}
 
