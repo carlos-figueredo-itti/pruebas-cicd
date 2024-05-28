@@ -1,0 +1,35 @@
+name: Deploy PR Preview
+on:
+  push:
+    branches:
+      - pr-preview
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+concurrency: preview-{github.ref}
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        if: github.event.action != 'closed'
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1.4.7
+        with:
+          source-dir: .
+          token: ${{ secrets.TOKEN_GITHUB_DEPLOY_TEST }}
+
